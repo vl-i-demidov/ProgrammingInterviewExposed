@@ -91,6 +91,17 @@ namespace ProgrammingInterviewExposed.LinkedList
         }
 
         [Fact]
+        public void InsertIntoEmptyChangesHeadAndTail()
+        {
+            var list = new DeleteInsertAfterLinkedList<int>();
+
+            var success = list.InsertAfter(null, 1);
+
+            Assert.Equal(1, list.Head.Data);
+            Assert.Equal(1, list.Tail.Data);
+        }
+
+        [Fact]
         public void InsertMiddleChangesNext()
         {
             var list = new DeleteInsertAfterLinkedList<int>();

@@ -10,7 +10,7 @@ namespace ProgrammingInterviewExposed.LinkedList
     your stack to be complete, consistent, and easy to use.
      */
 
-    class LinkedListElement<T>
+    public class LinkedListElement<T>
     {
         public LinkedListElement(T data) : this(null, data)
         {

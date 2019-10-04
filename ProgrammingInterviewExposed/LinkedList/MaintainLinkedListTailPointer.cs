@@ -52,6 +52,85 @@ namespace ProgrammingInterviewExposed.LinkedList
 
         public bool Delete(LinkedListElement<T> el)
         {
+            if (el == _head)
+            {
+                _head = _head.Next;
+
+                //if no elements left at all
+                if (_head == null)
+                {
+                    _tail = null;
+                }
+
+                return true;
+            }
+
+            var cur = _head;
+            while (cur != null)
+            {
+                if (cur.Next == el)
+                {
+                    var next = cur.Next.Next;
+                    cur.SetNext(next);
+                    if (next == null)
+                    {
+                        _tail = cur;
+                    }
+
+                    return true;
+                }
+                cur = cur.Next;
+            }
+
+            return false;
+        }
+
+        public bool InsertAfter(LinkedListElement<T> el, T data)
+        {
+            var newEl = new LinkedListElement<T>(data);
+
+            //insert before head
+            if (el == null)
+            {
+                var oldHead = _head;
+
+                newEl.SetNext(oldHead);
+
+                //only 1 element in list now
+                if (oldHead == null)
+                {
+                    _tail = newEl;
+                }
+                _head = newEl;
+                return true;
+            }
+
+            var cur = _head;
+
+            while (cur != null)
+            {
+                if (cur.Next == el)
+                {
+                    var e1 = cur.Next;
+                    var e3 = e1.Next;
+                    e1.SetNext(newEl);
+                    newEl.SetNext(e3);
+
+                    if (e3 == null)
+                    {
+                        _tail = newEl;
+                    }
+
+                    return true;
+                }
+                cur = cur.Next;
+            }
+
+            return false;
+        }
+
+        public bool Delete2(LinkedListElement<T> el)
+        {
             var prev = (LinkedListElement<T>)null;
             var cur = _head;
 
@@ -86,7 +165,7 @@ namespace ProgrammingInterviewExposed.LinkedList
             return true;
         }
 
-        public bool InsertAfter(LinkedListElement<T> el, T data)
+        public bool InsertAfter2(LinkedListElement<T> el, T data)
         {
             var newEl = new LinkedListElement<T>(data);
 
