@@ -5,6 +5,14 @@ using Xunit;
 
 namespace ProgrammingInterviewExposed.LinkedList
 {
+    public class MthToLastElementOfALinkedListEfficientTests : MthToLastElementOfALinkedListTests
+    {
+        protected override IMthToLastLinkedList<T> CreateArray<T>()
+        {
+            return new MthToLastLinkedListNoCounterEfficient<T>();
+        }
+    }
+
     public class MthToLastElementOfALinkedListTimeEfficientTests : MthToLastElementOfALinkedListTests
     {
         protected override IMthToLastLinkedList<T> CreateArray<T>()
@@ -18,6 +26,14 @@ namespace ProgrammingInterviewExposed.LinkedList
         protected override IMthToLastLinkedList<T> CreateArray<T>()
         {
             return new MthToLastLinkedListSpaceEfficient<T>();
+        }
+    }
+
+    public class MthToLastElementOfALinkedListNoCounterTests : MthToLastElementOfALinkedListTests
+    {
+        protected override IMthToLastLinkedList<T> CreateArray<T>()
+        {
+            return new MthToLastLinkedListNoCounter<T>();
         }
     }
 
