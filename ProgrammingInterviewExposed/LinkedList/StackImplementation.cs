@@ -4,8 +4,18 @@ using System.Text;
 
 namespace ProgrammingInterviewExposed.LinkedList
 {
+    /*
+     PROBLEM Discuss the stack data structure. Implement a stack in C using either
+    a linked list or a dynamic array, and justify your decision. Design the interface to
+    your stack to be complete, consistent, and easy to use.
+     */
+
     class LinkedListElement<T>
     {
+        public LinkedListElement(T data) : this(null, data)
+        {
+        }
+
         public LinkedListElement(LinkedListElement<T> next, T data)
         {
             Next = next;
