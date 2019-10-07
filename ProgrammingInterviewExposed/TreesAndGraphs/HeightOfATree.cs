@@ -16,6 +16,16 @@ namespace ProgrammingInterviewExposed.TreesAndGraphs
         public Node Left { get; set; }
         public Node Right { get; set; }
         public bool IsLeaf => Left == null && Right == null;
+        public int Value { get; set; }
+
+        public Node()
+        {
+        }
+
+        public Node(int value)
+        {
+            Value = value;
+        }
     }
 
     public class HeightCalculator
