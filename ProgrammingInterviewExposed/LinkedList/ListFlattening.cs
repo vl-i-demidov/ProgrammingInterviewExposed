@@ -43,6 +43,37 @@ namespace ProgrammingInterviewExposed.LinkedList
 
     public class ListFlattener
     {
+        //book implementation
+        //it just adds appends level N+1 to level N
+        //whereas implementation below appends children to its parent
+        public Node FlattenList2(Node head, Node tail)
+        {
+            var n = head;
+            while (n != null)
+            {
+                if (n.Child != null)
+                {
+                    Append(n.Child, ref tail);
+                    n.Child = null;
+                }
+                n = n.Next;
+            }
+            return head;
+        }
+
+        private void Append(Node child, ref Node tail)
+        {
+            Node curNode;
+            tail.Next = child;
+            child.Previous = tail;
+
+            for (curNode = child; curNode.Next != null; curNode = curNode.Next)
+            {
+            }
+
+            tail = curNode;
+        }
+
         public Node FlattenList(Node head, Node tail)
         {
             var n = head;
@@ -82,7 +113,10 @@ namespace ProgrammingInterviewExposed.LinkedList
             if (childTail != null)
             {
                 childTail.Next = parentNext;
-                parentNext.Previous = childTail;
+                if (parentNext != null)
+                {
+                    parentNext.Previous = childTail;
+                }
             }
 
             return parent;
