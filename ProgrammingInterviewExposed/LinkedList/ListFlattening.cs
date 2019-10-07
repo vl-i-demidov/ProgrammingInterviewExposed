@@ -27,25 +27,41 @@ namespace ProgrammingInterviewExposed.LinkedList
     }
 
 
-    class Node
+    public class Node
     {
         public Node Next { get; set; }
         public Node Previous { get; set; }
         public Node Child { get; set; }
         public int Value { get; set; }
+
+        public Node(int value)
+        {
+            Value = value;
+        }
     }
 
 
-    class ListFlattener
+    public class ListFlattener
     {
         public Node FlattenList(Node head, Node tail)
         {
-            return null;
+            var n = head;
+            while (n != null)
+            {
+                MergeChildrenInto(n);
+                n = n.Next;
+            }
+            return head;
         }
 
         private Node MergeChildrenInto(Node parent)
         {
             var child = parent.Child;
+
+            if (child == null)
+            {
+                return parent;
+            }
 
             //merge grandchildren into child if they exist
             var grandChildParent = GetNextSameLevelNodeWithChild(child);
@@ -60,8 +76,14 @@ namespace ProgrammingInterviewExposed.LinkedList
             var parentNext = parent.Next;
 
             parent.Child = null;
-            parent.Next = childHead;
-            childTail.Next = parentNext;
+            parent.Next = child;
+            child.Previous = parent;
+
+            if (childTail != null)
+            {
+                childTail.Next = parentNext;
+                parentNext.Previous = childTail;
+            }
 
             return parent;
         }
@@ -84,6 +106,11 @@ namespace ProgrammingInterviewExposed.LinkedList
 
         private Node GetLevelTail(Node head)
         {
+            if (head == null)
+            {
+                return null;
+            }
+
             var n = head;
             while (n.Next != null)
             {
