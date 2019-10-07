@@ -38,6 +38,42 @@ namespace ProgrammingInterviewExposed.LinkedList
 
             return false;
         }
+
+        //Floyd’s Cycle detection algorithm
+        public bool IsCyclicListFloyd<T>(LinkedListElement<T> head)
+        {
+            /*
+             Start slow pointer at the head of the list
+            Start fast pointer at second node
+            Loop infinitely
+                If the fast pointer reaches a null pointer
+                    Return that the list is null terminated
+                If the fast pointer moves onto or over the slow pointer
+                    Return that there is a cycle
+                Advance the slow pointer one node
+                Advance the fast pointer two nodes
+             */
+
+
+            var slow = head;
+            var fast = head.Next;
+
+            while (true)
+            {
+                if (fast == null || fast.Next == null)
+                {
+                    return false;
+                }
+
+                if (fast == slow || fast.Next == slow)
+                {
+                    return true;
+                }
+
+                slow = slow.Next;
+                fast = fast.Next.Next;
+            }
+        }
     }
 
 }
