@@ -16,9 +16,10 @@ namespace ProgrammingInterviewExposed.TreesAndGraphs
                 {
                     Left = new Node(2)
                     {
-                        Left = new Node(1)
+                        Left = new Node(1),
+                        Right = new Node(3)
                     },
-                    Right = new Node(3)
+                    Right = new Node(5)
                 },
                 Right = new Node(7)
             };
@@ -27,9 +28,30 @@ namespace ProgrammingInterviewExposed.TreesAndGraphs
             var balancedRoot = balancer.BalanceTree(root);
 
             AssertIsBinarySearchTree(balancedRoot);
-
         }
 
+        [Fact]
+        public void BalancesRightWithRotate()
+        {
+            var root = new Node(6)
+            {
+                Left = new Node(4)
+                {
+                    Left = new Node(2)
+                    {
+                        Left = new Node(1),
+                        Right = new Node(3)
+                    },
+                    Right = new Node(5)
+                },
+                Right = new Node(7)
+            };
+
+            TreeBalancer balancer = new TreeBalancer();
+            var balancedRoot = balancer.BalanceTreeRotate(root);
+
+            AssertIsBinarySearchTree(balancedRoot);
+        }
 
         private void AssertIsBinarySearchTree(Node root)
         {

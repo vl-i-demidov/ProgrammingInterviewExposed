@@ -22,6 +22,24 @@ namespace ProgrammingInterviewExposed.TreesAndGraphs
             return BalanceTreeArray(nodeArray, 0, nodeArray.Length - 1);
         }
 
+        //O(1) runtime, O(1) space
+        public Node BalanceTreeRotate(Node root)
+        {
+           return RotateRight(root);
+        }
+
+        //tree rotation algorithm
+        //take a root, make it's left child a new root, make left child's right leaf left leaf of old root
+        private Node RotateRight(Node oldRoot)
+        {
+            var newRoot = oldRoot.Left;
+            oldRoot.Left = newRoot.Right;
+            newRoot.Right = oldRoot;
+
+            return newRoot;
+        }
+
+
         private void TraverseOrder(Node root, Action<Node> action)
         {
             if (root.Left != null)
