@@ -22,10 +22,21 @@ namespace ProgrammingInterviewExposed.TreesAndGraphs
             return sb.ToString();
         }
 
+        public string PrintStack(Node root)
+        {
+            var sb = new StringBuilder();
+            Action<Node> printVals = n => sb.Append($"{n.Value} ");
+
+            TraverseStack(root, printVals);
+
+            return sb.ToString();
+        }
+
+        //O(n)
         private void Traverse(Node root, Action<Node> action)
         {
             var node = root;
-            Stack<Node> toProcess = new Stack<Node>();
+            var toProcess = new Stack<Node>();
 
             while (true)
             {
@@ -49,6 +60,34 @@ namespace ProgrammingInterviewExposed.TreesAndGraphs
                 else
                 {
                     break;
+                }
+            }
+        }
+
+        //O(n)
+        private void TraverseStack(Node root, Action<Node> action)
+        {
+            var stack = new Stack<Node>();
+            stack.Push(root);
+
+            while (stack.Count > 0)
+            {
+                var node = stack.Pop();
+                //recursion imitation
+
+                //1. call action
+                action(node);
+
+                //2. save state in stack
+                if (node.Right != null)
+                {
+                    stack.Push(node.Right);
+                }
+
+                //3. save state to stack
+                if (node.Left != null)
+                {
+                    stack.Push(node.Left);
                 }
             }
         }
