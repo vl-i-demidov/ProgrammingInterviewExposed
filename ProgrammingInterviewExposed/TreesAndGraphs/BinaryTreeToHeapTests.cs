@@ -43,6 +43,34 @@ namespace ProgrammingInterviewExposed.TreesAndGraphs
             AssertChildrenSmaller(tree);
         }
 
+        [Fact]
+        public void CreatesMaxHeapRight2()
+        {
+            var root = new Node(100)
+            {
+                Left = new Node(50)
+                {
+                    Left = new Node(25),
+                    Right = new Node(75),
+                },
+                Right = new Node(150)
+                {
+                    Left = new Node(125)
+                    {
+                        Left = new Node(110)
+                    },
+                    Right = new Node(175),
+                },
+            };
+
+            BinaryTreeHeap h = new BinaryTreeHeap();
+            var tree = h.Create2(root);
+
+
+            //check if every parent is larger than its child
+            AssertChildrenSmaller(tree);
+        }
+
         private void AssertChildrenSmaller(Node root)
         {
             if (root == null)

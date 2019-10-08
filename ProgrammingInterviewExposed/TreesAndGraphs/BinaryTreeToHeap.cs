@@ -22,7 +22,7 @@ namespace ProgrammingInterviewExposed.TreesAndGraphs
 
     class BinaryTreeHeap
     {
-        private HNode _tree;
+        private Node _tree;
 
         public Node Create(Node root)
         {
@@ -41,11 +41,19 @@ namespace ProgrammingInterviewExposed.TreesAndGraphs
             return _tree;
         }
 
+        public Node Create2(Node root)
+        {
+            var array = ArrayFromTree(root);
+            Array.Sort(array);
+            _tree = BalancedMaxBinaryTreeFromArray2(array);
+
+            return _tree;
+        }
 
         private HNode BalancedMaxBinaryTreeFromArray(int[] array, int startIndex, int endIndex, HNode parent)
         {
             //binary tree, max-heap
-
+            //on the left all nodes are larger than on the right
             var node = new HNode(array[endIndex], parent);
 
             if (startIndex == endIndex)
@@ -63,6 +71,28 @@ namespace ProgrammingInterviewExposed.TreesAndGraphs
             }
 
             return node;
+        }
+
+        private Node BalancedMaxBinaryTreeFromArray2(int[] array)
+        {
+            //binary tree, max-heap
+            //nodes of one level are larger than nodes of next level
+
+            Node[] nodes = new Node[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                nodes[i] = new Node(array[i]);
+            }
+
+            for (int i = 0; i < nodes.Length - 1; i++)
+            {
+                int left = nodes.Length - (2 * i + 1);
+                int right = nodes.Length - (left + 1);
+                nodes[i].Left = left >= 0 ? null : nodes[left];
+                nodes[i].Right = right >= 0 ? null : nodes[right];
+            }
+
+            return nodes[0];
         }
 
         private Node BalancedBinaryTreeFromArray(int[] array, int startIndex, int endIndex)
