@@ -39,5 +39,40 @@ namespace ProgrammingInterviewExposed.ArrayAndString
             }
             return new string(resultChars.ToArray());
         }
+
+        //here we use boolean array instead of map, because we know that the string is ASCII and, hence, 
+        //there are less than 256 options
+        //if it were any Unicode symbol, map would be more efficient
+        public static string RemoveChars2(string str, string remove)
+        {
+            //don't respect surrogate chars for simplicity
+            var removeCharsMap = new bool[Byte.MaxValue];
+
+            foreach (var ch in remove)
+            {
+                removeCharsMap[(byte)ch] = true;
+            }
+
+
+            //not sure if this approach is better than building array from scratch
+            //the pros is that we can use a static array
+            //the cons is that we allocate same size array
+
+            //in Java it makes probably more sense
+            //because you cannot iterate through char array of string directly
+
+            var resultChars = str.ToCharArray();
+            int resultIndex = 0;
+
+            for (int srcIndex = 0; srcIndex < resultChars.Length; srcIndex++)
+            {
+                if (!removeCharsMap[(byte)resultChars[srcIndex]])
+                {
+                    resultChars[resultIndex++] = resultChars[srcIndex];
+                }
+            }
+
+            return new string(resultChars, 0, resultIndex);
+        }
     }
 }

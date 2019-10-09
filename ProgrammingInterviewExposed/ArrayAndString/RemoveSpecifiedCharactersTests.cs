@@ -15,5 +15,14 @@ namespace ProgrammingInterviewExposed.ArrayAndString
 
             Assert.Equal("Bttl f th Vwls: Hw vs. Grzny", RemoveSpecifiedCharacters.RemoveChars(str, remove));
         }
+
+        [Fact]
+        public void RemovesSpecifiedCharactersRight2()
+        {
+            var str = "Battle of the Vowels: Hawaii vs. Grozny";
+            var remove = "aeiou";
+
+            Assert.Equal("Bttl f th Vwls: Hw vs. Grzny", RemoveSpecifiedCharacters.RemoveChars2(str, remove));
+        }
     }
 }
