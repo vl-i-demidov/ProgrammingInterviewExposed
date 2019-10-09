@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace ProgrammingInterviewExposed.TreesAndGraphs
@@ -154,6 +155,112 @@ namespace ProgrammingInterviewExposed.TreesAndGraphs
         private ActorNode GetActorNode(string actorName)
         {
             return _actors.First(a => a.Name == actorName);
+        }
+    }
+
+
+    class ActorGraphNode
+    {
+        public string Name { get; set; }
+        public HashSet<ActorGraphNode> LinkedActors { get; set; }
+        public int BaconNumber { get; set; }
+
+        public ActorGraphNode(string name)
+        {
+            Name = name;
+            LinkedActors = new HashSet<ActorGraphNode>();
+            BaconNumber = -1;
+        }
+
+        public void LinkCostart(ActorGraphNode costar)
+        {
+            LinkedActors.Add(costar);
+            costar.LinkedActors.Add(this);
+        }
+    }
+
+    class ActorGraph
+    {
+        private ActorGraphNode _baconNode;
+
+        public void LoadData(Dictionary<string, string[]> actorWithMovies)
+        {
+            var movieMap = new Dictionary<string, MovieNode>();
+
+            var actors = new List<ActorNode>();
+            foreach (var kv in actorWithMovies)
+            {
+                var actor = new ActorNode
+                {
+                    Name = kv.Key,
+                    Movies = new List<MovieNode>()
+                };
+
+                foreach (var movieTitle in kv.Value)
+                {
+                    if (!movieMap.ContainsKey(movieTitle))
+                    {
+                        movieMap.Add(movieTitle, new MovieNode { Title = movieTitle, Actors = new List<ActorNode>() });
+                    }
+
+                    var movie = movieMap[movieTitle];
+                    movie.Actors.Add(actor);
+                    actor.Movies.Add(movie);
+                }
+
+                actors.Add(actor);
+            }
+
+            var nodesMap = actors.Select(a => new ActorGraphNode(a.Name)).ToDictionary(n => n.Name, n => n);
+
+            foreach (var movie in movieMap)
+            {
+                foreach (var actor1 in movie.Value.Actors)
+                {
+                    var node1 = nodesMap[actor1.Name];
+
+                    foreach (var actor2 in movie.Value.Actors)
+                    {
+                        if (actor1.Name == actor2.Name)
+                        {
+                            continue;
+                        }
+
+                        var node2 = nodesMap[actor2.Name];
+
+                        node1.LinkCostart(node2);
+                    }
+                }
+            }
+
+            _baconNode = nodesMap["Bacon"];
+        }
+
+
+        public int GetBaconNumber(string actorName)
+        {
+            var queue = new Queue<ActorGraphNode>();
+            queue.Enqueue(_baconNode);
+
+            while (queue.Count > 0)
+            {
+                var node = queue.Dequeue();
+                if (node.Name == actorName)
+                {
+                    return _baconNode.BaconNumber;
+                }
+
+                foreach (var costar in node.LinkedActors)
+                {
+                    if (costar.BaconNumber == -1)
+                    {
+                        costar.BaconNumber = node.BaconNumber + 1;
+                        queue.Enqueue(costar);
+                    }
+                }
+            }
+
+            return -1;
         }
     }
 }
