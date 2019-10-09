@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace ProgrammingInterviewExposed.ArrayAndString
@@ -36,6 +37,35 @@ namespace ProgrammingInterviewExposed.ArrayAndString
             }
 
             return Char.MinValue;
+        }
+
+        //here we respect surrogates - unicode symbols that do not fit into 2-byte char and represented in C# as 2 chars
+        public string Find(string word)
+        {
+            var charMap = new Dictionary<string, int>();
+            var charEnum = StringInfo.GetTextElementEnumerator(word);
+
+            while (charEnum.MoveNext())
+            {
+                var ch = charEnum.GetTextElement();
+
+                if (!charMap.ContainsKey(ch))
+                {
+                    charMap.Add(ch, 0);
+                }
+
+                charMap[ch] = charMap[ch] + 1;
+            }
+
+            foreach (var chCount in charMap)
+            {
+                if (chCount.Value == 1)
+                {
+                    return chCount.Key;
+                }
+            }
+
+            return null;
         }
     }
 

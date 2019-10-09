@@ -15,5 +15,13 @@ namespace ProgrammingInterviewExposed.ArrayAndString
             Assert.Equal('r', program.FindNaive("teeter"));
         }
 
+        [Fact]
+        public void FindNonrepeatedCharacterRight()
+        {
+            var program = new FirstNonrepeatedCharacter();
+            Assert.Equal("o", program.Find("total"));
+            Assert.Equal("r", program.Find("teeter"));
+        }
+
     }
 }
