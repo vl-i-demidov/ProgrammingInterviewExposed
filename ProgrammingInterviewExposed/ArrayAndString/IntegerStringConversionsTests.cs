@@ -10,16 +10,29 @@ namespace ProgrammingInterviewExposed.ArrayAndString
         [Fact]
         public void ConvertsStringToIntRight()
         {
-            Assert.Equal(123, IntegerStringConversions.ConvertToInt("123"));
-            Assert.Equal(-123, IntegerStringConversions.ConvertToInt("-123"));
+            Assert.Equal(12030, IntegerStringConversions.ConvertToInt("12030"));
+            Assert.Equal(-12030, IntegerStringConversions.ConvertToInt("-12030"));
         }
 
         [Fact]
         public void ConvertsIntToStringRight()
         {
-            Assert.Equal("123", IntegerStringConversions.ConvertToString(123));
-            Assert.Equal("-123", IntegerStringConversions.ConvertToString(-123));
+            Assert.Equal("12030", IntegerStringConversions.ConvertToString(12030));
+            Assert.Equal("-12030", IntegerStringConversions.ConvertToString(-12030));
         }
 
+        [Fact]
+        public void ConvertsStringToIntRight2()
+        {
+            Assert.Equal(12030, IntegerStringConversions.ConvertToInt2("12030"));
+            Assert.Equal(-12030, IntegerStringConversions.ConvertToInt2("-12030"));
+        }
+
+        [Fact]
+        public void ConvertsIntToStringRight2()
+        {
+            Assert.Equal("12030", IntegerStringConversions.ConvertToString2(12030));
+            Assert.Equal("-12030", IntegerStringConversions.ConvertToString2(-12030));
+        }
     }
 }

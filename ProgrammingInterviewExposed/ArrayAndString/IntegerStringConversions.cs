@@ -43,7 +43,7 @@ namespace ProgrammingInterviewExposed.ArrayAndString
 
             int mod = 0;
             int pow = 1;
-            
+
             while (mod != i)
             {
                 mod = (int)(i % Math.Pow(10, pow));
@@ -61,7 +61,7 @@ namespace ProgrammingInterviewExposed.ArrayAndString
             return s.ToString();
         }
 
-        const byte ZeroAscii = 48;
+        const byte ZeroAscii = (byte)'0';// 48;
 
         private static char GetDigitChar(int i)
         {
@@ -73,5 +73,65 @@ namespace ProgrammingInterviewExposed.ArrayAndString
             return (byte)c - ZeroAscii;
         }
 
+        //use "Horner's Rule" - multiply previous value on the next step
+        //thus we can go from beginning to end
+        public static int ConvertToInt2(string s)
+        {
+            var chars = s.ToCharArray();
+            int sum = 0;
+            int sign = 1;
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                char c = chars[i];
+
+                if (i == 0 && c == '-')
+                {
+                    sign = -1;
+                }
+                else
+                {
+                    sum = sum * 10 + sign * GetCharDigit(c);
+                }
+            }
+
+            return sum;
+        }
+
+        //calculations simpler than in ConvertToString
+        //just divide & modulo same number by 10 to get required digit
+        public static string ConvertToString2(int i)
+        {
+            const int maxDigits = 10;
+            char[] temp = new char[maxDigits + 1];
+
+            bool negative = false;
+            if (i < 0)
+            {
+                negative = true;
+                i = -i;
+            }
+
+            int ind = 0;
+
+            while (i != 0)
+            {
+                temp[ind++] = GetDigitChar(i % 10);
+                i /= 10;
+            }
+
+            var s = new StringBuilder();
+            if (negative)
+            {
+                s.Append('-');
+            }
+
+            while (ind > 0)
+            {
+                s.Append(temp[--ind]);
+            }
+
+            return s.ToString();
+        }
     }
 }
