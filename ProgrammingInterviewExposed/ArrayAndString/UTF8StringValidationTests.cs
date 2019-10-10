@@ -15,6 +15,12 @@ namespace ProgrammingInterviewExposed.ArrayAndString
             Assert.False(UTF8StringValidation.IsValid(GetInvalidString()));
         }
 
+        [Fact]
+        public void StringValidatedRight2()
+        {
+            Assert.True(UTF8StringValidation.IsValid2(GetValidString()));
+            Assert.False(UTF8StringValidation.IsValid2(GetInvalidString()));
+        }
 
         private static byte[] GetValidString()
         {

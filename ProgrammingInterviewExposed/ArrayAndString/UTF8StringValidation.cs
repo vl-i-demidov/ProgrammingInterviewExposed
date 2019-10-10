@@ -75,6 +75,94 @@ namespace ProgrammingInterviewExposed.ArrayAndString
             return true;
         }
 
+        //a more pure and simpler way
+        public static bool IsValid2(byte[] str)
+        {
+            int pos = 0;
+            int trailingRemained = 0;
 
+            while (pos < str.Length)
+            {
+                var b = str[pos];
+
+                if (trailingRemained > 0)
+                {
+                    if (!IsTrailing(b))
+                    {
+                        return false;
+                    }
+                    trailingRemained--;
+                }
+                else
+                {
+                    if (IsLeading1(b))
+                    {
+
+                    }
+                    else if (IsLeading2(b))
+                    {
+                        trailingRemained = 1;
+                    }
+                    else if (IsLeading3(b))
+                    {
+                        trailingRemained = 2;
+                    }
+                    else if (IsLeading4(b))
+                    {
+                        trailingRemained = 3;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                pos++;
+            }
+
+            return true;
+        }
+
+
+        private static bool IsTrailing(byte b)
+        {
+            //construct a value called a mask where the bits you are
+            //interested in have a value of 1 and all other bits have values of 0.Combining the mask with the
+            //byte to be interrogated using the & operator zeros out everything except your bits of interest.
+
+            //10xxxxxx
+            const byte mask = 0b11000000;
+            const byte pattern = 0b10000000;
+
+            return (b & mask) == pattern;
+        }
+
+        private static bool IsLeading1(byte b)
+        {
+            //0xxxxxxx
+            const byte mask = 0b10000000;
+            return (b & mask) == 0;
+        }
+
+        private static bool IsLeading2(byte b)
+        {
+            //110xxxxx
+            const byte mask = 0b11100000;
+            return (b & mask) == 0b11000000;
+        }
+
+        private static bool IsLeading3(byte b)
+        {
+            //1110xxxx
+            const byte mask = 0b11110000;
+            return (b & mask) == 0b11100000;
+        }
+
+        private static bool IsLeading4(byte b)
+        {
+            //11110xxx
+            const byte mask = 0b11111000;
+            return (b & mask) == 0b11110000;
+        }
     }
 }
