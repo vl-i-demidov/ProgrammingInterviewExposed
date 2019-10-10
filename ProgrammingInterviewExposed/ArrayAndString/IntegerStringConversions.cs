@@ -108,17 +108,21 @@ namespace ProgrammingInterviewExposed.ArrayAndString
             bool negative = false;
             if (i < 0)
             {
+                //Special case to avoid overflow on negation
+                if (i == Int32.MinValue)
+                {
+                    return "-2147483648";
+                }
                 negative = true;
                 i = -i;
             }
 
             int ind = 0;
-
-            while (i != 0)
+            do
             {
                 temp[ind++] = GetDigitChar(i % 10);
                 i /= 10;
-            }
+            } while (i != 0);
 
             var s = new StringBuilder();
             if (negative)
