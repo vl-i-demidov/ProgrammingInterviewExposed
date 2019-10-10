@@ -20,5 +20,18 @@ namespace ProgrammingInterviewExposed.Recursion
             Assert.Equal(-1, BinarySearch.FindIndex(array3, 3));
         }
 
+
+        [Fact]
+        public void SearchesRightNonRecursive()
+        {
+            int[] array = { 1, 2, 3, 4, 5 };
+            int[] array2 = { 1, 2, 3, 4 };
+            int[] array3 = { };
+
+            Assert.Equal(2, BinarySearch.FindIndexNonRecursive(array, 3));
+            Assert.Equal(2, BinarySearch.FindIndexNonRecursive(array2, 3));
+            Assert.Equal(-1, BinarySearch.FindIndexNonRecursive(array, 7));
+            Assert.Equal(-1, BinarySearch.FindIndexNonRecursive(array3, 3));
+        }
     }
 }

@@ -49,5 +49,35 @@ namespace ProgrammingInterviewExposed.Recursion
 
         }
 
+        public static int FindIndexNonRecursive(int[] array, int value)
+        {
+            int lower = 0;
+            int upper = array.Length - 1;
+
+            while (true)
+            {
+                int range = upper - lower;
+                int center = lower + range / 2;
+
+                if (range < 0)
+                {
+                    return -1;
+                }
+
+                if (array[center] == value)
+                {
+                    return center;
+                }
+
+                if (array[center] < value)
+                {
+                    lower = center + 1;
+                }
+                else
+                {
+                    upper = center - 1;
+                }
+            }
+        }
     }
 }
