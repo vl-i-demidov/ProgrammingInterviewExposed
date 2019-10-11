@@ -69,7 +69,8 @@ namespace ProgrammingInterviewExposed.Recursion
             AppendDigChar(digitIndex, place + 1);
         }
 
-        private char GetCharKey(int telephoneKey, int place)
+
+        public static char GetCharKey(int telephoneKey, int place)
         {
             Dictionary<int, char[]> map = new Dictionary<int, char[]>
             {
@@ -87,6 +88,59 @@ namespace ProgrammingInterviewExposed.Recursion
 
             var chars = map[telephoneKey];
             return chars == null ? Char.Parse(telephoneKey.ToString()) : chars[place - 1];
+        }
+    }
+
+    class TelephoneWordsNonRecursive
+    {
+        private readonly int[] _digits;
+        private readonly char[] _str;
+        private readonly List<string> _results;
+
+        public TelephoneWordsNonRecursive(int[] digits)
+        {
+            _digits = digits;
+            _str = new char[digits.Length];
+            _results = new List<string>();
+        }
+
+        //going from right to left
+        //if current letter changes from low to high (for 2 - from C to A)
+        //move to previous letter
+        public List<string> Find()
+        {
+            _results.Clear();
+
+            for (int i = 0; i < _digits.Length; i++)
+            {
+                _str[i] = TelephoneWords.GetCharKey(_digits[i], 1);
+            }
+
+            while (true)
+            {
+                _results.Add(new string(_str));
+
+                for (int i = _digits.Length - 1; i >= -1; i--)
+                {
+                    if (i == -1) return _results;
+
+                    if (_str[i] == TelephoneWords.GetCharKey(_digits[i], 3)
+                        || _digits[i] == 1 || _digits[i] == 0)
+                    {
+                        _str[i] = TelephoneWords.GetCharKey(_digits[i], 1);
+                    }
+                    else if (_str[i] == TelephoneWords.GetCharKey(_digits[i], 1))
+                    {
+                        _str[i] = TelephoneWords.GetCharKey(_digits[i], 2);
+                        break;
+                    }
+                    else if (_str[i] == TelephoneWords.GetCharKey(_digits[i], 2))
+                    {
+                        _str[i] = TelephoneWords.GetCharKey(_digits[i], 3);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

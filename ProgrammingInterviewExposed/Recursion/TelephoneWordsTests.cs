@@ -26,5 +26,16 @@ namespace ProgrammingInterviewExposed.Recursion
 
             Assert.Equal(27, result.Count);
         }
+
+        [Fact]
+        public void FindWordsRightNonRecursive()
+        {
+            var program = new TelephoneWordsNonRecursive(new[] { 2, 3, 4 });
+            var result = program.Find();
+
+            _output.WriteLine(String.Join(" | ", result));
+
+            Assert.Equal(27, result.Count);
+        }
     }
 }
