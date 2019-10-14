@@ -44,4 +44,50 @@ namespace ProgrammingInterviewExposed.Recursion
         }
 
     }
+
+    //(book implementation)
+    //almost similar with 1st one
+    //instead of using prefix in Combine(), we use StringBuilder 
+    //and synchronize it's length on exit of recursive call
+    class CombinationsOfAStrings2
+    {
+        private readonly string _input;
+        private readonly StringBuilder _output;
+
+        private readonly List<string> _results;
+
+        public CombinationsOfAStrings2(string input)
+        {
+            _input = input;
+            _results = new List<string>();
+            _output = new StringBuilder();
+        }
+
+        public List<string> Combine()
+        {
+            _results.Clear();
+            _output.Clear();
+
+            Combine(0);
+
+            return _results;
+        }
+
+        private void Combine(int start)
+        {
+            for (int i = start; i < _input.Length; i++)
+            {
+                //append char
+                _output.Append(_input[i]);
+                
+                _results.Add(_output.ToString());
+
+                Combine(i + 1);
+
+                //remove char (synchronize length)
+                _output.Length -= 1;
+            }
+        }
+
+    }
 }
