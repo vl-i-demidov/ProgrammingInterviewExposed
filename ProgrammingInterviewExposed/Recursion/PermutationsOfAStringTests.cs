@@ -18,7 +18,7 @@ namespace ProgrammingInterviewExposed.Recursion
         [Fact]
         public void PermutatesStringRight()
         {
-            var program = new PermutationsOfAString("hat");
+            var program = new PermutationsOfAString("abcd");
 
             var permutations = program.GetPermutations();
 
