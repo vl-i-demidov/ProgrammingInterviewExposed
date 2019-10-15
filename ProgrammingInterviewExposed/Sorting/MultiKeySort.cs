@@ -57,6 +57,31 @@ namespace ProgrammingInterviewExposed.Sorting
         }
     }
 
+    class MultiKeySort2
+    {
+        private static Comparer _comparer = new Comparer();
+
+        //O(n*log(n)) + O(n) + O(l*k*log(k)) 
+        //(l - count of same given name groups, k - average count of items in the group)
+        public static void Sort(Employee[] data)
+        {
+            Array.Sort(data, _comparer);
+        }
+
+        private static int SurnameComparison(Employee a, Employee b)
+        {
+            return a.Surname.CompareTo(b.Surname);
+        }
+
+        private class Comparer : IComparer<Employee>
+        {
+            public int Compare(Employee x, Employee y)
+            {
+                return $"{x.Surname}{x.GivenName}".CompareTo($"{y.Surname}{y.GivenName}");
+            }
+        }
+    }
+
     class Employee
     {
         public string Extension { get; set; }
