@@ -11,7 +11,7 @@ namespace ProgrammingInterviewExposed.Sorting
     {
         public static void Sort(int[] data)
         {
-
+            Sort(data, 0, data.Length - 1);
         }
 
         //to make algorithm in-place, we use swapping
