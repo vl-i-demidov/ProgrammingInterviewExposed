@@ -39,6 +39,45 @@ namespace ProgrammingInterviewExposed.GraphicsAndBitManipulation
             return count;
         }
 
+        public static int GetOnBitsCount2(int i)
+        {
+            int count = 0;
+
+            //in case i is negative just read it as unsigned
+            //this way we save all the bits in their positions
+            uint ui = (uint)i;
+
+            while (ui != 0)
+            {
+                if ((ui & 1) == 1)
+                {
+                    count++;
+                }
+                ui = ui >> 1;
+            }
+
+            return count;
+        }
+
+        //advanced solution
+        //based on the fact that i-1 flips all bits from 0 to lowest 1 
+        public static int GetOnBitsCount3(int i)
+        {
+            int count = 0;
+
+            //in case i is negative just read it as unsigned
+            //this way we save all the bits in their positions
+            uint ui = (uint)i;
+
+            while (ui != 0)
+            {
+                ui = ui & (ui - 1);
+                count++;
+            }
+
+            return count;
+        }
+
 
     }
 }
